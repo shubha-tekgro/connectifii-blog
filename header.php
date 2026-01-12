@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+/**
+ * The header for our theme
+ *
+ * This is the template that displays all of the <head> section and everything up until <div id="content">
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package Connectifii
+ */
 
+?>
+<!doctype html>
+<html <?php language_attributes(); ?>>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-
+	<?php wp_head(); ?>
     <!-- Inter Google Font -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     </style>
 
-    <!-- TAILWIND CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style type="text/tailwindcss">
         @theme {
@@ -46,22 +56,22 @@
         --screen-xl: 1280px;
         --screen-2xl: 1536px;
     }
-    </style>
-
+    </style>    
 </head>
 
 <body class="relative">
+	<?php $theme_url= get_template_directory_uri(); ?>
 
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-transform duration-300">
         <div class="mx-auto flex items-center justify-between px-4 md:px-6 lg:px-12 xl:px-24 py-4">
             <!-- Logos -->
             <div class="flex items-center gap-4 shrink-0">
-                <a href="/" aria-label="Company Logo 1">
-                    <img src="assets/logo-icon.webp" alt="Company Logo 1" class="h-8 md:h-10 w-auto object-contain">
+                <a href="https://connectifii.au" aria-label="Company Logo 1">
+                    <img src="<?php echo $theme_url; ?>/assets/logo-icon.webp" alt="Company Logo 1" class="h-8 md:h-10 w-auto object-contain">
                 </a>
-                <a href="/" aria-label="Company Logo 2">
-                    <img src="assets/logo.webp" alt="Company Logo 2" class="h-8 md:h-10 w-auto object-contain">
+                <a href="https://connectifii.au" aria-label="Company Logo 2">
+                    <img src="<?php echo $theme_url; ?>/assets/logo.webp" alt="Company Logo 2" class="h-8 md:h-10 w-auto object-contain">
                 </a>
             </div>
 
@@ -127,6 +137,3 @@
         });
     </script>
 
-</body>
-
-</html>

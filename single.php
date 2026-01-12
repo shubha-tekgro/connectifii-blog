@@ -1,72 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+/**
+ * The template for displaying all single posts
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ *
+ * @package Connectifii
+ */
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog Details</title>
+get_header();
+$theme_url= get_template_directory_uri(); 
+?>
 
-</head>
-
-
-<?php include 'header.php'; ?>
-
-<body class="bg-white">
+<article class="bg-white">
 
     <!-- ========================= HERO SECTION ========================= -->
+
+<?php
+$banner_image   = get_post_meta(get_the_ID(), '_blog_banner_image', true);
+$heading        = get_post_meta(get_the_ID(), '_blog_banner_heading', true);
+$heading_span        = get_post_meta(get_the_ID(), '_blog_banner_heading_span', true);
+$content        = get_post_meta(get_the_ID(), '_blog_banner_content', true);
+$primary_text   = get_post_meta(get_the_ID(), '_blog_primary_btn_text', true);
+$primary_url    = get_post_meta(get_the_ID(), '_blog_primary_btn_url', true);
+$secondary_text = get_post_meta(get_the_ID(), '_blog_secondary_btn_text', true);
+$secondary_url  = get_post_meta(get_the_ID(), '_blog_secondary_btn_url', true);
+?>
+    <!-- ========================= HERO SECTION ========================= -->
+     <?php if ($banner_image || $heading || $heading_span || $content) : ?>
     <section
-        class="relative mt-16 flex min-h-screen items-center bg-[url('assets/images/blogheroimg.png')] bg-cover bg-center md:min-h-[70vh]"
-        role="banner">
+        class="relative mt-16 flex min-h-screen items-center bg-[url('<?php echo esc_url($banner_image); ?>')] bg-cover bg-center md:min-h-[70vh]" role="banner">
         <div class="absolute inset-0 bg-black/40"></div>
 
         <div class="relative z-10 grid w-full grid-cols-1 gap-6 px-4 py-10 text-white sm:px-8 md:grid-cols-2 lg:px-24">
             <div class="flex flex-col justify-center gap-2">
-                <h1 class="text-3xl font-bold sm:text-4xl lg:text-5xl leading-snug">
-                    How to Maximise <br />
-                    <span class="text-blue-400">Rental Income from Your <br /> Investment Property</span>
+            <?php if ($heading) : ?>
+                <h1 class="text-3xl font-bold sm:text-4xl lg:text-5xl leading-snug"><?php echo esc_html($heading); ?>
+                    <span class="text-blue-400"> <?php echo esc_html($heading_span); ?> </span>
                 </h1>
+            <?php endif; ?>
 
-                <p class="max-w-xl text-lg font-light sm:text-xl">
-                    Explore expert tips, market insights, and actionable strategies...
-                </p>
-
-                <!-- Bullet Points -->
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-2 text-sm font-light">
-                        <img src="assets/icons/green-tick.svg" class="h-5 w-5" />
-                        Fully Managed Service
-                    </div>
-                    <div class="flex items-center gap-2 text-sm font-light">
-                        <img src="assets/icons/green-tick.svg" class="h-5 w-5" />
-                        Strategic Tenant Selection
-                    </div>
-                    <div class="flex items-center gap-2 text-sm font-light">
-                        <img src="assets/icons/green-tick.svg" class="h-5 w-5" />
-                        Rental Yield Optimisation
-                    </div>
-                    <div class="flex items-center gap-2 text-sm font-light">
-                        <img src="assets/icons/green-tick.svg" class="h-5 w-5" />
-                        Preventive Maintenance Planning
-                    </div>
+            <?php if ($content) : ?>
+                <div class="bannerContent">
+                    <?php echo wp_kses_post(wpautop($content)); ?>
                 </div>
+            <?php endif; ?>
 
-                <!-- Buttons -->
-                <div class="flex flex-col gap-4 md:flex-row mt-4">
-                    <a
-                        href="tel:+61490167928"
-                        class="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white bg-white px-6 py-3 text-gray-800 hover:bg-opacity-90 transition">
-                        Get a Free Property Assessment
-                    </a>
 
-                    <a
-                        href="#articles"
-                        class="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white px-6 py-3 text-white hover:bg-gray-100/20">
-                        Explore More Articles
+            <div class="flex flex-col gap-4 md:flex-row mt-4">
+                <?php if ($primary_text && $primary_url) : ?>
+                    <a href="<?php echo esc_url($primary_url); ?>"
+                       class="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white bg-white px-6 py-3 text-gray-800 hover:bg-opacity-90 transition">
+                        <?php echo esc_html($primary_text); ?>
                     </a>
-                </div>
+                <?php endif; ?>
+
+                <?php if ($secondary_text && $secondary_url) : ?>
+                    <a href="<?php echo esc_url($secondary_url); ?>"
+                       class="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white px-6 py-3 text-white hover:bg-gray-100/20">
+                        <?php echo esc_html($secondary_text); ?>
+                    </a>
+                <?php endif; ?>
+            </div>            
             </div>
         </div>
     </section>
+    <?php endif; ?>
 
     <!-- ========================= BLOG LAYOUT ========================= -->
     <div class="relative bg-lightbg min-h-screen">
@@ -80,16 +78,16 @@
 
                     <!-- Google Logo & Rating -->
                     <div class="flex flex-col items-center text-center">
-                        <img src="assets/icons/google.svg" alt="Google Logo" class="h-10 w-10 mb-2" />
+                        <img src="<?php echo $theme_url; ?>/assets/icons/google.svg" alt="Google Logo" class="h-10 w-10 mb-2" />
                         <h2 class="text-xl font-semibold">5.0</h2>
                         <p class="text-sm text-gray-600">(Based On 125 Reviews)</p>
 
                         <div class="flex mt-1">
-                            <img src="assets/icons/star-yellow.svg" class="h-5 w-5" />
-                            <img src="assets/icons/star-yellow.svg" class="h-5 w-5" />
-                            <img src="assets/icons/star-yellow.svg" class="h-5 w-5" />
-                            <img src="assets/icons/star-yellow.svg" class="h-5 w-5" />
-                            <img src="assets/icons/star-yellow.svg" class="h-5 w-5" />
+                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-5 w-5" />
+                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-5 w-5" />
+                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-5 w-5" />
+                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-5 w-5" />
+                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-5 w-5" />
                         </div>
                     </div>
 
@@ -103,11 +101,11 @@
                                     <div>
                                         <h3 class="font-semibold text-sm">Patrick Sarkis</h3>
                                         <div class="flex items-center gap-1">
-                                            <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
                                             <span class="text-xs text-gray-500 ml-1">(4 Weeks ago)</span>
                                         </div>
                                     </div>
@@ -131,15 +129,15 @@
                                 <div class="swiper-slide">
                                     <div class="bg-white shadow-md border border-gray-200 rounded-lg p-5 flex flex-col gap-3">
                                         <div class="flex items-center gap-3">
-                                            <img src="assets/images/user.png" class="h-12 w-12 rounded-full object-cover" />
+                                            <img src="<?php echo $theme_url; ?>/assets/images/user.png" class="h-12 w-12 rounded-full object-cover" />
                                             <div>
                                                 <h3 class="font-semibold text-sm">Patrick Sarkis</h3>
                                                 <div class="flex items-center gap-1">
-                                                    <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                                    <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                                    <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                                    <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                                    <img src="assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                                    <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                                    <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                                    <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                                    <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                                    <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
                                                     <span class="text-xs text-gray-500 ml-1">(4 Weeks ago)</span>
                                                 </div>
                                             </div>
@@ -161,7 +159,7 @@
 
                 <!-- Newsletter -->
                 <div class="hidden bg-gray-700 mt-4 rounded p-5 text-center space-y-3">
-                    <img src="assets/icons/email.svg" class="mx-auto" />
+                    <img src="<?php echo $theme_url; ?>/assets/icons/email.svg" class="mx-auto" />
                     <h2 class="text-lg font-semibold text-white">Get the Latest Updates First</h2>
                     <p class="text-sm text-white">Updates delivered to your inbox!</p>
                     <input
@@ -178,88 +176,70 @@
             <main class="order-1 md:order-2 px-2 space-y-6">
 
                 <!-- Author Info -->
-                <div class="flex items-center gap-2">
-                    <img src="assets/images/founder.webp" class="h-12 w-12 rounded-full object-cover" />
-                    <div>
-                        <span class="text-lg font-semibold opacity-75">Mical Hader</span>
-                        <div class="flex items-center gap-2 text-xs opacity-75">
-                            <span>Director</span>
-                            <p class="h-1 w-1 bg-black rounded-full"></p>
-                            <span>Australia, Updated on Nov 24, 2025</span>
-                        </div>
-                    </div>
-                </div>
+				<?php $author_id = get_post_field( 'post_author', get_the_ID() ); ?>
+				
+				<div class="flex items-center gap-2">
+				
+					<!-- Author Avatar -->
+					<?php echo get_avatar(
+						$author_id,
+						48,
+						'',
+						'',
+						[ 'class' => 'h-12 w-12 rounded-full object-cover' ]
+					); ?>
+				
+					<div>
+						<!-- Author Name -->
+						<span class="text-lg font-semibold opacity-75">
+							<?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?>
+						</span>
+				
+						<?php
+						$job_title = get_user_meta( $author_id, 'job_title', true );
+						$location  = get_user_meta( $author_id, 'location', true );
+						?>
+				
+						<?php if ( $job_title || $location ) : ?>
+							<div class="flex items-center gap-2 text-xs opacity-75">
+				
+								<?php if ( $job_title ) : ?>
+									<span><?php echo esc_html( $job_title ); ?></span>
+								<?php endif; ?>
+				
+								<?php if ( $job_title && $location ) : ?>
+									<span class="h-1 w-1 bg-black rounded-full"></span>
+								<?php endif; ?>
+				
+								<?php if ( $location ) : ?>
+									<span>
+										<?php echo esc_html( $location ); ?>,
+										Updated on <?php echo esc_html( get_the_modified_date( 'M d, Y' ) ); ?>
+									</span>
+								<?php endif; ?>
+				
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+									
+				<!-- Author Description -->
+				<?php $author_desc = get_user_meta( $author_id, 'author_desc', true );
+					if ( $author_desc ) : ?>
+					<p class="border-b pb-2 text-xs opacity-60">
+						<?php echo esc_html( $author_desc ); ?>
+					</p>
+				<?php endif; ?>
 
-                <p class="border-b pb-2 text-xs opacity-60">
-                    Mical’s career is a masterclass in strategic growth, operational excellence...
-                </p>
 
                 <!-- Hero Image -->
                 <div class="w-full h-80 overflow-hidden rounded-lg">
-                    <img src="assets/images/blogbg.png" class="h-full w-full object-cover" />
+                    <img src="<?php the_post_thumbnail_url(); ?>" class="h-full w-full object-cover" />
                 </div>
 
                 <!-- Article Sections -->
                 <div class="space-y-6">
-
-                    <div>
-                        <h2 class="text-primaryBlue-500 text-2xl font-semibold">
-                            Welcome to CONNECTIFII: Where Success Starts with Connections
-                        </h2>
-                        <p class="font-light text-justify">
-                            today’s fast-paced world, success is built on strong
-                            connections and that’s exactly why CONNECTIFII exists. We’re
-                            here to bridge the gap between property, finance, and
-                            strategic partnerships, creating opportunities that drive
-                            growth and innovation.
-                        </p>
-                    </div>
-
-                    <div>
-                        <h2 class="text-primaryBlue-500 text-2xl font-semibold">Why Choose CONNECTIFII?</h2>
-                        <p class="font-light text-justify">We’re not just another service provider. CONNECTIFII is a
-                            boutique firm with over 20 years of expertise in Real Estate,
-                            Finance, and Property Services. Our mission is simple: to
-                            connect you with expert solutions that make a real impact.</p>
-
-                        <ol class="list-decimal pl-5 space-y-1 text-sm font-light">
-                            <li>Finance Services</li>
-                            <li>Property Solutions</li>
-                            <li>Access to Off-Market Sites</li>
-                            <li>Hotel Partnerships</li>
-                            <li>Flexible Head Lease Agreements</li>
-                            <li>Insurance</li>
-                            <li>Building Maintenance Services</li>
-                            <li>Strategic Partnerships</li>
-                        </ol>
-
-                        <p class="font-light text-justify">Every service is designed to help you achieve more whether
-                            you’re an investor, property owner, or business leader.</p>
-                    </div>
-
-                    <div>
-                        <h2 class="text-primaryBlue-500 text-2xl font-semibold">
-                            The Face Behind CONNECTIFII
-                        </h2>
-                        <p class="font-light text-justify">
-                            At the heart of CONNECTIFII is Mical, a visionary entrepreneur
-                            with a proven track record in finance and property innovation.
-                            She began her career at Byblos Finance (now bf money), laying
-                            a strong foundation in finance before co-founding Byblos
-                            Realty as Director and Licensee in Charge. Her entrepreneurial
-                            spirit led to the launch of Perfect Strata Maintenance, where
-                            she scaled operations from 20 to over 150 buildings in just 12
-                            months a remarkable achievement in the strata services space.
-                        </p>
-                        <p class="font-light text-justify">
-                            Today, Mical leads CONNECTIFII, leveraging her extensive
-                            industry network to deliver integrated, high-impact solutions
-                            across property and finance sectors.
-                        </p>
-                        <p class="font-light text-justify">Ready to connect? Explore how CONNECTIFII can help you unlock
-                            new opportunities. Contact us today</p>
-                    </div>
-
+					<?php the_content(); ?>
                 </div>
             </main>
 
@@ -268,7 +248,7 @@
 
                 <div class=" space-y-4 pl-3">
                     <div class="bg-white rounded-md shadow-sm p-4 flex flex-col items-center gap-4">
-                        <img src="assets/images/cc-logo.webp" class="w-40" />
+                        <img src="<?php echo $theme_url; ?>/assets/images/cc-logo.webp" class="w-40" />
 
                         <div class="text-center">
                             <h1 class="font-semibold">Mical Hader</h1>
@@ -285,13 +265,13 @@
                         <!-- Social Icons -->
                         <div class="flex gap-2">
                             <a href="https://www.facebook.com/connectifii">
-                                <img src="assets/icons/fb.svg" />
+                                <img src="<?php echo $theme_url; ?>/assets/icons/fb.svg" />
                             </a>
                             <a href="https://www.linkedin.com/company/connectifii-partnerships/">
-                                <img src="assets/icons/linkedin.svg" />
+                                <img src="<?php echo $theme_url; ?>/assets/icons/linkedin.svg" />
                             </a>
                             <a href="https://www.instagram.com/connectifii/">
-                                <img src="assets/icons/insta.svg" />
+                                <img src="<?php echo $theme_url; ?>/assets/icons/insta.svg" />
                             </a>
                         </div>
                     </div>
@@ -307,7 +287,7 @@
 
                                 <!-- Service 1 -->
                                 <div class="flex items-start gap-3">
-                                    <img src="assets/images/service1.webp" alt="Finance"
+                                    <img src="<?php echo $theme_url; ?>/assets/images/service1.webp" alt="Finance"
                                         class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
                                     <div>
                                         <h4 class="text-sm font-semibold">Finance</h4>
@@ -321,7 +301,7 @@
 
                                 <!-- Service 2 -->
                                 <div class="flex items-start gap-3">
-                                    <img src="assets/images/service2.webp" alt="Access to Sites Off Market"
+                                    <img src="<?php echo $theme_url; ?>/assets/images/service2.webp" alt="Access to Sites Off Market"
                                         class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
                                     <div>
                                         <h4 class="text-sm font-semibold">Access to Sites Off Market</h4>
@@ -334,7 +314,7 @@
 
                                 <!-- Service 3 -->
                                 <div class="flex items-start gap-3">
-                                    <img src="assets/images/service3.webp" alt="Access to Development JV Partners"
+                                    <img src="<?php echo $theme_url; ?>/assets/images/service3.webp" alt="Access to Development JV Partners"
                                         class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
                                     <div>
                                         <h4 class="text-sm font-semibold">Access to Development JV Partners</h4>
@@ -348,7 +328,7 @@
 
                                 <!-- Service 4 -->
                                 <div class="flex items-start gap-3">
-                                    <img src="assets/images/service4.webp" alt="Hotel Partnerships"
+                                    <img src="<?php echo $theme_url; ?>/assets/images/service4.webp" alt="Hotel Partnerships"
                                         class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
                                     <div>
                                         <h4 class="text-sm font-semibold">Hotel Partnerships</h4>
@@ -375,7 +355,7 @@
 
                             <div class="space-y-3">
                                 <div class="flex items-start gap-3">
-                                    <img src="assets/images/service1.webp" alt="Case Study 1"
+                                    <img src="<?php echo $theme_url; ?>/assets/images/service1.webp" alt="Case Study 1"
                                         class="w-16 h-16 rounded-md object-cover flex-shrink-0">
                                     <div>
                                         <h4 class="text-sm font-semibold">How artificial intelligence transforming?</h4>
@@ -387,7 +367,7 @@
                                 </div>
 
                                 <div class="flex items-start gap-3">
-                                    <img src="assets/images/service2.webp" alt="Case Study 2"
+                                    <img src="<?php echo $theme_url; ?>/assets/images/service2.webp" alt="Case Study 2"
                                         class="w-16 h-16 rounded-md object-cover flex-shrink-0">
                                     <div>
                                         <h4 class="text-sm font-semibold">How artificial intelligence transforming?</h4>
@@ -403,15 +383,13 @@
                     </aside>
                 </div>
 
-
             </aside>
 
         </section>
     </div>
 
-</body>
+</article>
 
-<?php include 'footer.php'; ?>
 
 <script>
     new Swiper(".mySwiper", {
@@ -426,4 +404,6 @@
 </script>
 
 
-</html>
+
+<?php
+get_footer();
