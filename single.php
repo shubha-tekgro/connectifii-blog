@@ -15,16 +15,16 @@ $theme_url= get_template_directory_uri();
 
     <!-- ========================= HERO SECTION ========================= -->
 
-<?php
-$banner_image   = get_post_meta(get_the_ID(), '_blog_banner_image', true);
-$heading        = get_post_meta(get_the_ID(), '_blog_banner_heading', true);
-$heading_span        = get_post_meta(get_the_ID(), '_blog_banner_heading_span', true);
-$content        = get_post_meta(get_the_ID(), '_blog_banner_content', true);
-$primary_text   = get_post_meta(get_the_ID(), '_blog_primary_btn_text', true);
-$primary_url    = get_post_meta(get_the_ID(), '_blog_primary_btn_url', true);
-$secondary_text = get_post_meta(get_the_ID(), '_blog_secondary_btn_text', true);
-$secondary_url  = get_post_meta(get_the_ID(), '_blog_secondary_btn_url', true);
-?>
+    <?php
+    $banner_image   = get_post_meta(get_the_ID(), '_blog_banner_image', true);
+    $heading        = get_post_meta(get_the_ID(), '_blog_banner_heading', true);
+    $heading_span        = get_post_meta(get_the_ID(), '_blog_banner_heading_span', true);
+    $content        = get_post_meta(get_the_ID(), '_blog_banner_content', true);
+    $primary_text   = get_post_meta(get_the_ID(), '_blog_primary_btn_text', true);
+    $primary_url    = get_post_meta(get_the_ID(), '_blog_primary_btn_url', true);
+    $secondary_text = get_post_meta(get_the_ID(), '_blog_secondary_btn_text', true);
+    $secondary_url  = get_post_meta(get_the_ID(), '_blog_secondary_btn_url', true);
+    ?>
     <!-- ========================= HERO SECTION ========================= -->
      <?php if ($banner_image || $heading || $heading_span || $content) : ?>
     <section
@@ -245,35 +245,63 @@ $secondary_url  = get_post_meta(get_the_ID(), '_blog_secondary_btn_url', true);
 
             <!-- ================= RIGHT SIDEBAR ================= -->
             <aside class="order-3 hidden xl:block sticky top-5 h-fit pl-3">
-
+                <?php
+                    $job_title = get_user_meta( $author_id, 'job_title', true );
+                    $author_words  = get_user_meta( $author_id, 'author_words', true );
+                ?>
                 <div class=" space-y-4 pl-3">
                     <div class="bg-white rounded-md shadow-sm p-4 flex flex-col items-center gap-4">
                         <img src="<?php echo $theme_url; ?>/assets/images/cc-logo.webp" class="w-40" />
 
                         <div class="text-center">
-                            <h1 class="font-semibold">Mical Hader</h1>
-                            <p class="text-primaryBlue-500 text-sm">Director</p>
-                            <p class="text-xs font-light mt-2">
-                                Mical’s career is a masterclass in strategic growth,
-                                operational excellence, and industry innovation. She started
-                                her journey at Byblos Finance (now bf money) — one of
-                                Australia’s leading brokerage firms — where she built a
-                                solid foundation in finance.
-                            </p>
-                        </div>
+                            <h1 class="text-primaryBlue-500 text-sm"> 
+                                <?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?>
+                            </h1>
+                            <?php if ( $job_title || $author_words ) : ?>
+                                
+                                    <?php if ( $job_title ) : ?>
+                                        <p class="text-primaryBlue-500 text-sm"> <?php echo esc_html( $job_title ); ?> </p>
+                                    <?php endif; ?>
 
-                        <!-- Social Icons -->
-                        <div class="flex gap-2">
-                            <a href="https://www.facebook.com/connectifii">
-                                <img src="<?php echo $theme_url; ?>/assets/icons/fb.svg" />
-                            </a>
-                            <a href="https://www.linkedin.com/company/connectifii-partnerships/">
-                                <img src="<?php echo $theme_url; ?>/assets/icons/linkedin.svg" />
-                            </a>
-                            <a href="https://www.instagram.com/connectifii/">
-                                <img src="<?php echo $theme_url; ?>/assets/icons/insta.svg" />
-                            </a>
+                                    <?php if ( $author_words ) : ?>
+                                        <p class="text-xs font-light mt-2"> <?php echo esc_html( $author_words ); ?> </p>
+                                    <?php endif; ?>
+
+                             
+                            <?php endif; ?>
+
+
+
                         </div>
+                        <?php
+                            $insta_link = get_user_meta( $author_id, 'insta_link', true );
+                            $linkedin_link = get_user_meta( $author_id, 'linkedin_link', true );
+                            $facebook_link = get_user_meta( $author_id, 'facebook_link', true );
+
+                        ?>
+                        <!-- Social Icons -->
+                            <?php if ( $insta_link || $linkedin_link || $insta_link ) : ?>
+                                <div class="flex gap-2">
+                                    <?php if ( $facebook_link ) : ?>
+                                        <a target="_blank" href="<?php echo esc_html( $facebook_link ); ?>">
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/fb.svg" />
+                                        </a>                            
+                                    <?php endif; ?>
+
+                                    <?php if ( $linkedin_link ) : ?>
+                                        <a target="_blank" href="<?php echo esc_html( $linkedin_link ); ?>">
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/linkedin.svg" />
+                                        </a>                            
+                                    <?php endif; ?>
+                            
+                                    <?php if ( $insta_link ) : ?>
+                                        <a target="_blank" href="<?php echo esc_html( $insta_link ); ?>">
+                                            <img src="<?php echo $theme_url; ?>/assets/icons/insta.svg" />
+                                        </a>                            
+                                    <?php endif; ?>
+                            
+                                </div>
+                            <?php endif; ?>
                     </div>
 
                     <!-- Blog Sidebar Placeholder -->
