@@ -313,64 +313,62 @@ $theme_url= get_template_directory_uri();
 
                             <div class="space-y-3">
 
-                                <!-- Service 1 -->
-                                <div class="flex items-start gap-3">
-                                    <img src="<?php echo $theme_url; ?>/assets/images/service1.webp" alt="Finance"
-                                        class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
-                                    <div>
-                                        <h4 class="text-sm font-semibold">Finance</h4>
-                                        <p class="text-xs text-gray-600">
-                                            CONNECTIFII® is your finance pathway access to Australia's leading Tier 1 lending institutions
-                                            and private family offices...
-                                            <a href="/services/#finance" class="text-blue-600 font-medium">Learn More</a>
-                                        </p>
-                                    </div>
-                                </div>
+                            <?php
+                            $args = array(
+                                'posts_per_page' => 4,
+                                'post_type'      => 'services',
+                            );
 
-                                <!-- Service 2 -->
-                                <div class="flex items-start gap-3">
-                                    <img src="<?php echo $theme_url; ?>/assets/images/service2.webp" alt="Access to Sites Off Market"
-                                        class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
-                                    <div>
-                                        <h4 class="text-sm font-semibold">Access to Sites Off Market</h4>
-                                        <p class="text-xs text-gray-600">
-                                            With CONNECTIFII®'s extensive network of lenders, developers, lead consultants...
-                                            <a href="/services/#access-to-sites-off-market" class="text-blue-600 font-medium">Learn More</a>
-                                        </p>
-                                    </div>
-                                </div>
+                            $the_query = new WP_Query($args);
 
-                                <!-- Service 3 -->
-                                <div class="flex items-start gap-3">
-                                    <img src="<?php echo $theme_url; ?>/assets/images/service3.webp" alt="Access to Development JV Partners"
-                                        class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
-                                    <div>
-                                        <h4 class="text-sm font-semibold">Access to Development JV Partners</h4>
-                                        <p class="text-xs text-gray-600">
-                                            CONNECTIFII® conducts end-to-end reviews of each project to determine viable structures...
-                                            <a href="/services/#access-to-development-jv-partners"
-                                                class="text-blue-600 font-medium">Learn More</a>
-                                        </p>
-                                    </div>
-                                </div>
+                            if ($the_query->have_posts()) :
+                                while ($the_query->have_posts()) : $the_query->the_post();
 
-                                <!-- Service 4 -->
-                                <div class="flex items-start gap-3">
-                                    <img src="<?php echo $theme_url; ?>/assets/images/service4.webp" alt="Hotel Partnerships"
-                                        class="w-16 h-16 rounded-md object-cover flex-shrink-0" />
-                                    <div>
-                                        <h4 class="text-sm font-semibold">Hotel Partnerships</h4>
-                                        <p class="text-xs text-gray-600">
-                                            For many developers, converting residential apartments into short-term accommodation...
-                                            <a href="/services/#hotel-partnerships" class="text-blue-600 font-medium">Learn More</a>
-                                        </p>
+                                    $service_link = get_post_meta(get_the_ID(), '_services_custom_link', true);
+                                    ?>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <img 
+                                            src="<?php the_post_thumbnail_url(); ?>" 
+                                            alt="<?php the_title_attribute(); ?>"
+                                            class="w-16 h-16 rounded-md object-cover flex-shrink-0"
+                                        />
+
+                                        <div>
+                                            <h4 class="text-sm font-semibold">
+                                                <?php the_title(); ?>
+                                            </h4>
+
+                                            <div class="text-xs text-gray-600">
+                                                <?php echo wp_trim_words(get_the_content(), 20); ?>
+                                                <?php if ($service_link) : ?>
+                                                    <a 
+                                                        href="<?php echo esc_url($service_link); ?>" 
+                                                        target="_blank"
+                                                        class="text-blue-600 font-medium inline-block mt-1"
+                                                    >
+                                                        Learn More
+                                                    </a>
+                                                <?php endif; ?>                                                
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <?php
+                                endwhile;
+                            else :
+                                echo '<p>Sorry, no services found.</p>';
+                            endif;
+
+                            wp_reset_postdata();
+                            ?>                         
+
+
 
                             </div>
 
                             <!-- Explore Button -->
-                            <a href="/services">
+                            <a href="https://connectifii.au/services" target="_blank">
                                 <button class="w-full mt-5 bg-gray-800 hover:bg-gray-900 text-white text-sm font-medium py-2 rounded-md">
                                     Explore All Services
                                 </button>

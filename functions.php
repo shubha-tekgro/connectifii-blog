@@ -181,6 +181,11 @@ require get_template_directory() . '/inc/author-custom-code.php';
 require get_template_directory() . '/inc/inner-blog-metabox.php';
 
 /**
+ * CPT Services We Offer
+ */
+require get_template_directory() . '/inc/services-we-offer.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
