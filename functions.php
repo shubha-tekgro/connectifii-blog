@@ -186,6 +186,11 @@ require get_template_directory() . '/inc/inner-blog-metabox.php';
 require get_template_directory() . '/inc/services-we-offer.php';
 
 /**
+ * CPT Services We Offer
+ */
+require get_template_directory() . '/inc/blog-page-metabox.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
@@ -193,4 +198,80 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 
+function connectifii_enqueue_scripts() {
+    wp_enqueue_script('connectifii-scripts', get_template_directory_uri() . '/script.js', [], '1.0', true);
 
+    // Pass AJAX URL to JS
+    wp_localize_script('connectifii-scripts', 'ajax_object', [
+        'ajax_url' => admin_url('admin-ajax.php')
+    ]);
+}
+add_action('wp_enqueue_scripts', 'connectifii_enqueue_scripts');
+
+
+
+// Search load Ajax
+// AJAX handler for blog search
+function connectifii_blog_search() {
+    $search = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
+
+    $args = [
+        'post_type' => 'post',
+        'posts_per_page' => 12,
+        's' => $search,
+    ];
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post(); ?>
+            
+            <a href="<?php the_permalink(); ?>" class="block border border-border h-full max-w-[350px] overflow-hidden rounded bg-white p-4 hover:shadow-lg transition-all">
+                <div class="h-[160px] w-full overflow-hidden rounded">
+                    <?php if (has_post_thumbnail()) {
+                        the_post_thumbnail('medium', ['class' => 'h-full w-full object-cover blog-image', 'alt' => esc_attr(get_the_title())]);
+                    } ?>
+                </div>
+                <div class="mt-2 flex w-full flex-col gap-2">
+                    <div class="flex items-center justify-between text-xs opacity-75">
+                        <p class="blog-date"><?php echo get_the_date(); ?></p>
+                        <p class="blog-readTime">
+                            <?php
+                            $content = get_post_field('post_content', get_the_ID());
+                            $word_count = str_word_count(wp_strip_all_tags($content));
+                            $read_time = ceil($word_count / 200);
+                            echo esc_html($read_time . ' min');
+                            ?>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex items-start justify-between gap-5">
+                            <h2 class="text-base font-bold blog-title"><?php the_title(); ?></h2>
+                            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/icons/linkArrow.svg" alt="Arrow Icon" class="w-6 h-6 object-cover" />
+                        </div>
+                        <p class="text-xs font-light blog-description"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <?php echo get_avatar(get_the_author_meta('ID'), 20, '', '', ['class' => 'h-5 w-5 rounded-full blog-authorImage']); ?>
+                        <span class="text-xs opacity-75 blog-authorName"><?php the_author(); ?></span>
+                    </div>
+                    <?php $tags = get_the_tags(); if ($tags): ?>
+                        <div class="flex flex-wrap gap-3 text-xs blog-tags">
+                            <?php foreach ($tags as $tag): ?>
+                                <span class="opacity-75"><?php echo esc_html($tag->name); ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </a>
+
+        <?php }
+    } else {
+        echo '<p>No posts found.</p>';
+    }
+
+    wp_die(); // end AJAX request
+}
+add_action('wp_ajax_blog_search', 'connectifii_blog_search');
+add_action('wp_ajax_nopriv_blog_search', 'connectifii_blog_search');
