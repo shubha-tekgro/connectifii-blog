@@ -58,27 +58,16 @@ $secondary_url  = $secondary_url ?: 'https://connectifii.au/services';
                 </p>
 
                 <!-- SEARCH BAR -->
-                <!-- <form action="<?php echo home_url('/'); ?>" method="get" class="bg-searchbg flex max-w-sm items-center overflow-hidden rounded-[4px] bg-[#F2F2F2]">
+                <div class="bg-searchbg flex max-w-sm items-center overflow-hidden rounded-[4px] bg-[#F2F2F2]">
                     <input
                         type="text"
-                        name="s"
+                        id="blogSearch"
                         placeholder="Search..."
                         class="w-full border-none bg-transparent px-4 py-2 text-black focus:outline-none" />
-                    <button type="submit" class="mr-3">
+                    <button id="searchBtn" class="mr-3">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/searchicon.svg" alt="Search" class="h-5 w-5" />
                     </button>
-                </form> -->
-<!-- SEARCH BAR -->
-<div class="bg-searchbg flex max-w-sm items-center overflow-hidden rounded-[4px] bg-[#F2F2F2]">
-    <input
-        type="text"
-        id="blogSearch"
-        placeholder="Search..."
-        class="w-full border-none bg-transparent px-4 py-2 text-black focus:outline-none" />
-    <button id="searchBtn" class="mr-3">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/searchicon.svg" alt="Search" class="h-5 w-5" />
-    </button>
-</div>
+                </div>
 
 
                 <div class="flex flex-col gap-5 md:flex-row">

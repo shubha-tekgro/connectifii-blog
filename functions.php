@@ -229,7 +229,31 @@ function connectifii_blog_search() {
             
             <a href="<?php the_permalink(); ?>" class="block border border-border h-full max-w-[350px] overflow-hidden rounded bg-white p-4 hover:shadow-lg transition-all">
                 <div class="h-[160px] w-full overflow-hidden rounded">
-                    <?php if (has_post_thumbnail()) {
+                    <?php if (has_post_thumbnail()) {function register_google_reviews_cpt() {
+    $labels = array(
+        'name'               => 'Google Reviews',
+        'singular_name'      => 'Google Review',
+        'menu_name'          => 'Google Reviews',
+        'add_new'            => 'Add Review',
+        'add_new_item'       => 'Add New Review',
+        'edit_item'          => 'Edit Review',
+        'new_item'           => 'New Review',
+        'view_item'          => 'View Review',
+        'search_items'       => 'Search Reviews',
+    );
+
+    register_post_type('google_reviews', array(
+        'labels'        => $labels,
+        'public'        => true,
+        'menu_icon'     => 'dashicons-star-filled',
+        'supports'      => array('editor'), // editor = review text
+        'has_archive'   => false,
+        'rewrite'       => array('slug' => 'google-reviews'),
+        'show_in_rest'  => true,
+    ));
+}
+add_action('init', 'register_google_reviews_cpt');
+
                         the_post_thumbnail('medium', ['class' => 'h-full w-full object-cover blog-image', 'alt' => esc_attr(get_the_title())]);
                     } ?>
                 </div>
@@ -275,3 +299,67 @@ function connectifii_blog_search() {
 }
 add_action('wp_ajax_blog_search', 'connectifii_blog_search');
 add_action('wp_ajax_nopriv_blog_search', 'connectifii_blog_search');
+
+
+// ====================================================================
+
+function register_google_reviews_cpt() {
+    $labels = array(
+        'name'               => 'Google Reviews',
+        'singular_name'      => 'Google Review',
+        'menu_name'          => 'Google Reviews',
+        'add_new'            => 'Add Review',
+        'add_new_item'       => 'Add New Review',
+        'edit_item'          => 'Edit Review',
+        'new_item'           => 'New Review',
+        'view_item'          => 'View Review',
+        'search_items'       => 'Search Reviews',
+    );
+
+    register_post_type('google_reviews', array(
+        'labels'        => $labels,
+        'public'        => true,
+        'menu_icon'     => 'dashicons-star-filled',
+        'supports'      => array('editor'), // editor = review text
+        'has_archive'   => false,
+        'rewrite'       => array('slug' => 'google-reviews'),
+        'show_in_rest'  => true,
+    ));
+}
+add_action('init', 'register_google_reviews_cpt');
+
+
+function google_reviews_meta_box() {
+    add_meta_box(
+        'google_reviews_meta',
+        'Review Details',
+        'google_reviews_meta_callback',
+        'google_reviews'
+    );
+}
+add_action('add_meta_boxes', 'google_reviews_meta_box');
+
+function google_reviews_meta_callback($post) {
+    $name   = get_post_meta($post->ID, 'reviewer_name', true);
+    $rating = get_post_meta($post->ID, 'rating', true);
+    ?>
+    <p>
+        <label>Reviewer Name</label><br>
+        <input type="text" name="reviewer_name" value="<?php echo esc_attr($name); ?>" style="width:100%;" />
+    </p>
+    <p>
+        <label>Rating (1–5)</label><br>
+        <input type="number" name="rating" min="1" max="5" value="<?php echo esc_attr($rating); ?>" />
+    </p>
+    <?php
+}
+
+function save_google_reviews_meta($post_id) {
+    if (isset($_POST['reviewer_name'])) {
+        update_post_meta($post_id, 'reviewer_name', sanitize_text_field($_POST['reviewer_name']));
+    }
+    if (isset($_POST['rating'])) {
+        update_post_meta($post_id, 'rating', intval($_POST['rating']));
+    }
+}
+add_action('save_post', 'save_google_reviews_meta');

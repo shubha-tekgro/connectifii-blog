@@ -80,7 +80,7 @@ $theme_url= get_template_directory_uri();
                     <div class="flex flex-col items-center text-center">
                         <img src="<?php echo $theme_url; ?>/assets/icons/google.svg" alt="Google Logo" class="h-10 w-10 mb-2" />
                         <h2 class="text-xl font-semibold">5.0</h2>
-                        <p class="text-sm text-gray-600">(Based On 125 Reviews)</p>
+                        <p class="text-sm text-gray-600">(Based On Reviews)</p>
 
                         <div class="flex mt-1">
                             <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-5 w-5" />
@@ -95,26 +95,46 @@ $theme_url= get_template_directory_uri();
                     <div class="hidden md:block mt-6 w-full max-w-md">
                         <div class="h-[60vh] overflow-y-scroll pr-2 space-y-4">
 
-                            <!-- Review item 1 -->
-                            <div class="bg-white shadow-sm border border-gray-200 rounded-lg p-4 flex flex-col gap-2">
-                                <div class="flex items-center gap-3">
-                                    <div>
-                                        <h3 class="font-semibold text-sm">Patrick Sarkis</h3>
-                                        <div class="flex items-center gap-1">
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
-                                            <span class="text-xs text-gray-500 ml-1">(4 Weeks ago)</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <?php
+                            $args = array( 'post_type'      => 'google_reviews', 'posts_per_page' => -1, );
+                            $query = new WP_Query($args);
 
-                                <p class="text-xs lg:text-sm text-gray-700 leading-relaxed">
-                                    Mical and the CONNECTIFII® team were able to create meaningful partnerships with industry leaders that made my project a success.
-                                </p>
-                            </div>
+                            if ($query->have_posts()) :
+                                while ($query->have_posts()) : $query->the_post();
+                                    $reviewer_name = get_post_meta(get_the_ID(), 'reviewer_name', true);
+                                    $rating        = (int) get_post_meta(get_the_ID(), 'rating', true);
+                                    ?>
+
+                                    <!-- Review item -->
+                                    <div class="bg-white shadow-sm border border-gray-200 rounded-lg p-4 flex flex-col gap-2">
+                                        <div class="flex items-center gap-3">
+                                            <div>
+                                                <h3 class="font-semibold text-sm"> <?php echo esc_html($reviewer_name); ?> </h3>
+
+                                                <div class="flex items-center gap-1">
+                                                    <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                        <?php if ($i <= $rating) : ?>
+                                                            <img src="<?php echo $theme_url; ?>/assets/icons/star-yellow.svg" class="h-4 w-4" />
+                                                        <?php else : ?>
+                                                            <p></p>
+                                                        <?php endif; ?>
+                                                    <?php endfor; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <p class="text-xs lg:text-sm text-gray-700 leading-relaxed">
+                                            <?php echo wp_kses_post(get_the_content()); ?>
+                                        </p>
+
+                                    </div>
+
+                                    <?php
+                                endwhile;
+                                wp_reset_postdata();
+                            endif;
+                            ?>
+
 
                             <!-- Copy same block for more reviews OR ask me to auto-generate -->
                         </div>
@@ -238,7 +258,7 @@ $theme_url= get_template_directory_uri();
                 </div>
 
                 <!-- Article Sections -->
-                <div class="space-y-6">
+                <div class="space-y-6 single-blog-content">
 					<?php the_content(); ?>
                 </div>
             </main>

@@ -67,22 +67,22 @@
         <div class="mx-auto flex items-center justify-between px-4 md:px-6 lg:px-12 xl:px-24 py-4">
             <!-- Logos -->
             <div class="flex items-center gap-4 shrink-0">
-                <a href="https://connectifii.au" aria-label="Company Logo 1">
+                <a target="_blank" href="https://connectifii.au" aria-label="Company Logo 1">
                     <img src="<?php echo $theme_url; ?>/assets/logo-icon.webp" alt="Company Logo 1" class="h-8 md:h-10 w-auto object-contain">
                 </a>
-                <a href="https://connectifii.au" aria-label="Company Logo 2">
+                <a target="_blank" href="https://connectifii.au" aria-label="Company Logo 2">
                     <img src="<?php echo $theme_url; ?>/assets/logo.webp" alt="Company Logo 2" class="h-8 md:h-10 w-auto object-contain">
                 </a>
             </div>
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex items-center gap-6 xl:gap-12 text-sm md:text-base font-semibold text-primaryGray">
-                <a href="https://connectifii.au/" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Home</a>
-                <a href="https://connectifii.au/about" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">About</a>
-                <a href="https://connectifii.au/services" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Services</a>
-                <a href="https://connectifii.au/contact" target="_blank" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Contact</a>
-                <a href="https://blog.connectifii.au" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Blog</a>
-                <a href="https://connectifii.au/contact" target="_blank" class="ml-4 rounded-md bg-primaryGray px-6 py-2 mb-1 text-sm font-medium text-white hover:bg-primaryGray-100 transition-colors">Book a Consultation</a>
+                <a target="_blank" href="https://connectifii.au/" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Home</a>
+                <a target="_blank" href="https://connectifii.au/about" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">About</a>
+                <a target="_blank" href="https://connectifii.au/services" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Services</a>
+                <a target="_blank" href="https://connectifii.au/contact"  class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Contact</a>
+                <a target="_blank" href="https://blog.connectifii.au" class="inline-block pb-1 border-b-2 border-transparent hover:border-primaryGray hover:text-gray-900 transition-colors">Blog</a>
+                <a target="_blank" href="https://connectifii.au/contact"  class="ml-4 rounded-md bg-primaryGray px-6 py-2 mb-1 text-sm font-medium text-white hover:bg-primaryGray-100 transition-colors">Book a Consultation</a>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -99,12 +99,12 @@
         <!-- Mobile Nav -->
         <nav id="mobile-nav" class="lg:hidden bg-white shadow-md hidden overflow-hidden">
             <ul class="flex flex-col items-center space-y-4 px-6 py-6 text-base font-semibold text-primaryGray">
-                <li><a href="https://connectifii.au" class="block w-full text-center hover:text-gray-900 transition-colors">Home</a></li>
-                <li><a href="https://connectifii.au/about" class="block w-full text-center hover:text-gray-900 transition-colors">About</a></li>
-                <li><a href="https://connectifii.au/services" class="block w-full text-center hover:text-gray-900 transition-colors">Services</a></li>
-                <li><a href="https://connectifii.au/contact" target="_blank" class="block w-full text-center hover:text-gray-900 transition-colors">Contact</a></li>
-                <li><a href="https://blog.connectifii.au" class="block w-full text-center hover:text-gray-900 transition-colors">Blog</a></li>
-                <li><a href="https://connectifii.au/contact" target="_blank" class="block rounded-md bg-primaryGray px-6 py-2 text-sm font-medium text-white hover:bg-primaryGray-100 w-[200px] mx-auto text-center">Book a Consultation</a></li>
+                <li><a target="_blank" href="https://connectifii.au" class="block w-full text-center hover:text-gray-900 transition-colors">Home</a></li>
+                <li><a target="_blank" href="https://connectifii.au/about" class="block w-full text-center hover:text-gray-900 transition-colors">About</a></li>
+                <li><a target="_blank" href="https://connectifii.au/services" class="block w-full text-center hover:text-gray-900 transition-colors">Services</a></li>
+                <li><a target="_blank" href="https://connectifii.au/contact"  class="block w-full text-center hover:text-gray-900 transition-colors">Contact</a></li>
+                <li><a target="_blank" href="https://blog.connectifii.au" class="block w-full text-center hover:text-gray-900 transition-colors">Blog</a></li>
+                <li><a target="_blank" href="https://connectifii.au/contact" class="block rounded-md bg-primaryGray px-6 py-2 text-sm font-medium text-white hover:bg-primaryGray-100 w-[200px] mx-auto text-center">Book a Consultation</a></li>
             </ul>
         </nav>
     </header>
