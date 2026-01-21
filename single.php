@@ -265,64 +265,73 @@ $theme_url= get_template_directory_uri();
 
             <!-- ================= RIGHT SIDEBAR ================= -->
             <aside class="order-3 hidden xl:block sticky top-5 h-fit pl-3">
-                <?php
-                    $job_title = get_user_meta( $author_id, 'job_title', true );
-                    $author_words  = get_user_meta( $author_id, 'author_words', true );
-                ?>
+             
                 <div class=" space-y-4 pl-3">
-                    <div class="bg-white rounded-md shadow-sm p-4 flex flex-col items-center gap-4">
-                        <img src="<?php echo $theme_url; ?>/assets/images/cc-logo.webp" class="w-40" />
+                <?php
+                    $ceo_image     = get_theme_mod( 'ceo_image' );
+                    $ceo_name      = get_theme_mod( 'ceo_name' );
+                    $ceo_role      = get_theme_mod( 'ceo_role' );
+                    $ceo_content   = get_theme_mod( 'ceo_content' );
+                    $facebook_link = get_theme_mod( 'ceo_facebook_link' );
+                    $linkedin_link = get_theme_mod( 'ceo_linkedin_link' );
+                    $instagram_link= get_theme_mod( 'ceo_instagram_link' );
+                ?>
 
-                        <div class="text-center">
-                            <h1 class="text-primaryBlue-500 text-sm"> 
-                                <?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?>
+                <div class="bg-white rounded-md shadow-sm p-4 flex flex-col items-center gap-4">
+                    <?php if ( ! empty( $ceo_image ) ) : ?>
+                        <div class="ceo-image">
+                            <img src="<?php echo esc_url( $ceo_image ); ?>" alt="<?php echo esc_attr( $ceo_name ); ?>" class="w-40">
+                        </div>
+                    <?php endif; ?>    
+
+                    <div class="text-center">
+
+                        <?php if ( ! empty( $ceo_name ) ) : ?>
+                            <h1 class="text-primaryBlue-500 text-sm">
+                                <?php echo esc_html( $ceo_name ); ?>
                             </h1>
-                            <?php if ( $job_title || $author_words ) : ?>
-                                
-                                    <?php if ( $job_title ) : ?>
-                                        <p class="text-primaryBlue-500 text-sm"> <?php echo esc_html( $job_title ); ?> </p>
-                                    <?php endif; ?>
+                        <?php endif; ?>        
 
-                                    <?php if ( $author_words ) : ?>
-                                        <p class="text-xs font-light mt-2"> <?php echo esc_html( $author_words ); ?> </p>
-                                    <?php endif; ?>
+                        <?php if ( ! empty( $ceo_role ) ) : ?>
+                            <p class="text-primaryBlue-500 text-sm">
+                                <?php echo esc_html( $ceo_role ); ?>
+                            </p>
+                        <?php endif; ?>
 
-                             
+                        <?php if ( ! empty( $ceo_content ) ) : ?>
+                            <p class="text-xs font-light mt-2">
+                                <?php echo wp_kses_post( $ceo_content ); ?>
+                            </p>
+                        <?php endif; ?>
+
+                    </div>
+                    
+                    <?php if ( ! empty( $facebook_link ) || ! empty( $linkedin_link ) || ! empty( $instagram_link ) ) : ?>
+                        <div class="flex gap-2" style=" align-items: center; ">
+
+                            <?php if ( ! empty( $facebook_link ) ) : ?>
+                                <a href="<?php echo esc_url( $facebook_link ); ?>" target="_blank" rel="noopener">
+                                    <img src="https://blog.connectifii.au/wp-content/themes/connectifii/assets/icons/fb.svg">
+                                </a>
                             <?php endif; ?>
 
+                            <?php if ( ! empty( $linkedin_link ) ) : ?>
+                                <a href="<?php echo esc_url( $linkedin_link ); ?>" target="_blank" rel="noopener">
+                                    <img src="https://blog.connectifii.au/wp-content/themes/connectifii/assets/icons/linkedin.svg">
+                                </a>
+                            <?php endif; ?>
 
+                            <?php if ( ! empty( $instagram_link ) ) : ?>
+                                <a href="<?php echo esc_url( $instagram_link ); ?>" target="_blank" rel="noopener">
+                                    <img src="https://blog.connectifii.au/wp-content/themes/connectifii/assets/icons/insta.svg">
+                                </a>
+                            <?php endif; ?>
 
                         </div>
-                        <?php
-                            $insta_link = get_user_meta( $author_id, 'insta_link', true );
-                            $linkedin_link = get_user_meta( $author_id, 'linkedin_link', true );
-                            $facebook_link = get_user_meta( $author_id, 'facebook_link', true );
+                    <?php endif; ?>
 
-                        ?>
-                        <!-- Social Icons -->
-                            <?php if ( $insta_link || $linkedin_link || $insta_link ) : ?>
-                                <div class="flex gap-2">
-                                    <?php if ( $facebook_link ) : ?>
-                                        <a target="_blank" href="<?php echo esc_html( $facebook_link ); ?>">
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/fb.svg" />
-                                        </a>                            
-                                    <?php endif; ?>
+                </div>  
 
-                                    <?php if ( $linkedin_link ) : ?>
-                                        <a target="_blank" href="<?php echo esc_html( $linkedin_link ); ?>">
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/linkedin.svg" />
-                                        </a>                            
-                                    <?php endif; ?>
-                            
-                                    <?php if ( $insta_link ) : ?>
-                                        <a target="_blank" href="<?php echo esc_html( $insta_link ); ?>">
-                                            <img src="<?php echo $theme_url; ?>/assets/icons/insta.svg" />
-                                        </a>                            
-                                    <?php endif; ?>
-                            
-                                </div>
-                            <?php endif; ?>
-                    </div>
 
                     <!-- Blog Sidebar Placeholder -->
                     <aside class="flex flex-col gap-6 w-full max-w-sm mx-auto">

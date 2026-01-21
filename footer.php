@@ -116,6 +116,22 @@
 </footer>
 
 <?php wp_footer(); ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".single-blog-content h2, .single-blog-content h3, .single-blog-content h4, .single-blog-content h5")
+    .forEach(function(el) {
+      el.classList.add("text-primaryBlue-500", "text-2xl", "font-semibold");
+    });
+  document.querySelectorAll(".single-blog-content p")
+    .forEach(function(el) {
+      el.classList.add("font-light", "text-justify");
+    });
+  document.querySelectorAll(".single-blog-content ul", ".single-blog-content ol")
+    .forEach(function(el) {
+      el.classList.add("list-decimal", "pl-5", "space-y-1", "text-sm", "font-light");
+    });
+});
+</script>
 
 </body>
 </html>

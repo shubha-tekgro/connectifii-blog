@@ -363,3 +363,104 @@ function save_google_reviews_meta($post_id) {
     }
 }
 add_action('save_post', 'save_google_reviews_meta');
+
+
+
+
+//   Add BLog CEO Customizer
+function mytheme_ceo_customize_register( $wp_customize ) {
+
+    /* ===============================
+     * SECTION: CEO Information
+     * =============================== */
+    $wp_customize->add_section( 'ceo_section', array(
+        'title'       => __( 'CEO Information', 'mytheme' ),
+        'priority'    => 30,
+        'description' => __( 'Manage CEO details', 'mytheme' ),
+    ) );
+
+    /* ===============================
+     * CEO Image
+     * =============================== */
+    $wp_customize->add_setting( 'ceo_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Image_Control(
+        $wp_customize,
+        'ceo_image',
+        array(
+            'label'    => __( 'Upload CEO Image', 'mytheme' ),
+            'section'  => 'ceo_section',
+            'settings' => 'ceo_image',
+        )
+    ) );
+
+    /* ===============================
+     * CEO Name
+     * =============================== */
+    $wp_customize->add_setting( 'ceo_name', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    $wp_customize->add_control( 'ceo_name', array(
+        'label'   => __( 'CEO Name', 'mytheme' ),
+        'section' => 'ceo_section',
+        'type'    => 'text',
+    ) );
+
+    /* ===============================
+     * CEO Role
+     * =============================== */
+    $wp_customize->add_setting( 'ceo_role', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ) );
+
+    $wp_customize->add_control( 'ceo_role', array(
+        'label'   => __( 'CEO Role', 'mytheme' ),
+        'section' => 'ceo_section',
+        'type'    => 'text',
+    ) );
+
+    /* ===============================
+     * CEO Content
+     * =============================== */
+    $wp_customize->add_setting( 'ceo_content', array(
+        'default'           => '',
+        'sanitize_callback' => 'wp_kses_post',
+    ) );
+
+    $wp_customize->add_control( 'ceo_content', array(
+        'label'   => __( 'CEO Content', 'mytheme' ),
+        'section' => 'ceo_section',
+        'type'    => 'textarea',
+    ) );
+
+    /* ===============================
+     * Social Media Links
+     * =============================== */
+    $social_links = array(
+        'facebook'  => 'Facebook URL',
+        'linkedin'  => 'LinkedIn URL',
+        'instagram' => 'Instagram URL',
+    );
+
+    foreach ( $social_links as $key => $label ) {
+
+        $wp_customize->add_setting( "ceo_{$key}_link", array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ) );
+
+        $wp_customize->add_control( "ceo_{$key}_link", array(
+            'label'   => __( $label, 'mytheme' ),
+            'section' => 'ceo_section',
+            'type'    => 'url',
+        ) );
+    }
+}
+
+add_action( 'customize_register', 'mytheme_ceo_customize_register' );
