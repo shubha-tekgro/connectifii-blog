@@ -31,8 +31,8 @@
             <nav aria-label="New to CONNECTIFII®" class="text-left">
                 <h3 class="mb-4 text-base font-semibold text-white">New to CONNECTIFII®?</h3>
                 <ul class="space-y-2 text-sm leading-6">
-                    <li><a href="#why-connectifii" class="hover:underline">Why CONNECTIFII®</a></li>
-                    <li><a href="/services.php" class="hover:underline">Explore Our Services</a></li>
+                    <li><a target="_blank" href="https://connectifii.au/#why-connectifii" class="hover:underline">Why CONNECTIFII®</a></li>
+                    <li><a target="_blank" href="https://connectifii.au/services" class="hover:underline">Explore Our Services</a></li>
                 </ul>
             </nav>
 
@@ -40,8 +40,8 @@
             <nav aria-label="About CONNECTIFII®" class="text-left">
                 <h3 class="mb-4 text-base font-semibold text-white">About CONNECTIFII®</h3>
                 <ul class="space-y-2 text-sm leading-6">
-                    <li><a href="/about.php#our-story" class="hover:underline">Our Story</a></li>
-                    <li><a href="/contact.php" class="hover:underline">Join CONNECTIFII®</a></li>
+                    <li><a target="_blank" href="https://connectifii.au/about#our-story" class="hover:underline">Our Story</a></li>
+                    <li><a target="_blank" href="https://connectifii.au/contact" class="hover:underline">Join CONNECTIFII®</a></li>
                 </ul>
             </nav>
 
@@ -51,17 +51,17 @@
                 <ul class="space-y-3">
                     <li class="flex items-center gap-2">
                         <img src="<?php echo $theme_url; ?>/assets/icons/phone.svg" class="w-5" alt="">
-                        <a href="tel:+61490167928" class="hover:underline">+61 4 9016 7928</a>
+                        <a target="_blank" href="tel:+61490167928" class="hover:underline">+61 4 9016 7928</a>
                     </li>
 
                     <li class="flex items-center gap-2">
                         <img src="<?php echo $theme_url; ?>/assets/icons/mail.svg" class="w-5" alt="">
-                        <a href="mailto:hello@connectifii.au" class="hover:underline">hello@connectifii.au</a>
+                        <a target="_blank" href="mailto:hello@connectifii.au" class="hover:underline">hello@connectifii.au</a>
                     </li>
 
                     <li class="flex items-start gap-2">
                         <img src="<?php echo $theme_url; ?>/assets/icons/address.svg" class="w-5 pt-1" alt="">
-                        <a href="https://www.google.com/maps/place/Pyrmont+NSW+2009"
+                        <a target="_blank" href="https://www.google.com/maps/place/Pyrmont+NSW+2009"
                             target="_blank" class="hover:underline">
                             PO Box 261 Pyrmont NSW 2009
                         </a>
@@ -90,7 +90,7 @@
         <p class="text-left text-xs text-gray-400">
             © 2025 <span class="uppercase">CONNECTIFII® PTY LTD</span> |
             All rights reserved |
-            <a href="/privacy-policy.php" class="hover:underline">Privacy Policy</a> |
+            <a href="https://connectifii.au/privacy-policy" class="hover:underline">Privacy Policy</a> |
             Terms of Service
         </p>
 
